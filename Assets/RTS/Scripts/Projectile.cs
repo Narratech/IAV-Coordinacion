@@ -22,7 +22,7 @@ namespace es.ucm.fdi.iav.rts
      * - Importante confirmar que los misiles no colisionan ni interfieren entre sí.
      * - Establecer un tiempo máximo de duración de vuelo o una distancia máxima, para que no pueda recorrer todo el escenario.
      * - Hacer distintos tamaños o colores según lo dispare una unidad exploradora o una destructora, por ejemplo.
-     * - Si se añade este componente a un objeto, no necesita Rigidbody con IsKinematic activado, sólo collision y que no sea trigger... para poder detectar si entra o abandona el trigger con su objetivo.
+     * - Si se añade este componente a un objeto, no necesita Rigidbody con IsKinematic activado, sólo collision y que NO sea trigger... para poder detectar si entra o abandona el trigger con su objetivo.
      */
     //[RequireComponent(typeof(Rigidbody))]
     public class Projectile : MonoBehaviour
@@ -83,13 +83,16 @@ namespace es.ucm.fdi.iav.rts
             // A lo mejor sería suficiente buscar una fórmula que haga avanzar al proyectil una cierta distancia pero sin tener de referencia a su objetivo (ya le hemos orientado antes)
             // transform.position += transform.forward * Speed * Time.deltaTime;
             //transform.position = Vector3.MoveTowards(transform.position, TargetTransform.position, Speed * Time.deltaTime);
-            transform.position+= NormalizedDirection * Speed * Time.deltaTime;
-           
+            // Se podría cambiar NormalizedDirection por transform.forward que es un vector normalizado hacia donde encara el proyectil
+            transform.position += NormalizedDirection * Speed * Time.deltaTime;
+
             TravelledRange += Speed * Time.deltaTime;
 
             // Si ya he recorrido todo lo que da mi alcance, me autodestruyo 
-            if (TravelledRange > Range)
-                DestroySelf();
+            if (TravelledRange > Range) {
+                Debug.Log("Me destruyo...");
+            DestroySelf();
+             }
         }
 
         // Devuelve el índice de su controlador correspondiente. 

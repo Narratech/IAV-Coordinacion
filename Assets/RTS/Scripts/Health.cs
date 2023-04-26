@@ -47,6 +47,8 @@ namespace es.ucm.fdi.iav.rts
         // La salud recibe cierta cantida de daño
         public void TakeDamage(int amount)
         {
+            Debug.Log("Soy " + this + " y me han hecho daño" + (new System.Diagnostics.StackTrace()).GetFrame(1).GetMethod().Name);
+
             Amount -= amount;
 
             // No permite que la salud baje de cero
