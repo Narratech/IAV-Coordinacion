@@ -90,8 +90,7 @@ namespace es.ucm.fdi.iav.rts
 
             // Si ya he recorrido todo lo que da mi alcance, me autodestruyo 
             if (TravelledRange > Range) {
-                Debug.Log("Me destruyo...");
-            DestroySelf();
+                DestroySelf();
              }
         }
 
@@ -109,11 +108,11 @@ namespace es.ucm.fdi.iav.rts
         // Posibles mejoras:
         // - Podría pedirse el rango como parámetro, aunque ahora mismo usamos el del propio proyectil.
         // - Si es una torreta, estaría bien tener un método que no requiere controlador (o pasar sólo el índice).
-        public void Enable(RTSController controller, Transform targetTransform, int damageAmount)
+        public void Enable(RTSController controller, Vector3 targetPosition, int damageAmount)
         {
             // No compruebo si hay RTSController porque cuando disparan las torretas, no los llevan
-            if (targetTransform == null)
-                throw new ArgumentNullException("Se ha recibido un objetivo nulo.");
+            if (targetPosition == null)
+                throw new ArgumentNullException("Se ha recibido una posición de objetivo nula.");
             if (damageAmount <= 0)
                 throw new ArgumentNullException("Se ha recibido un daño negativo o nulo."); 
             if (Enabled)
@@ -121,7 +120,7 @@ namespace es.ucm.fdi.iav.rts
 
             Controller = controller; // Puede ser nulo, si ha disparado una torreta 
 
-            NormalizedDirection = (targetTransform.position - transform.position).normalized;
+            NormalizedDirection = (targetPosition - transform.position).normalized;
 
             DamageAmount = damageAmount; 
             Enabled = true;

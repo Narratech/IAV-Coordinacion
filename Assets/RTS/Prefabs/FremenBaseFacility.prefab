@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 484eedb0ed00a2c40a528ec27467f901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialAmmount: 100
+  _initialAmmount: 1000
 --- !u!65 &4472167760737285667
 BoxCollider:
   m_ObjectHideFlags: 0

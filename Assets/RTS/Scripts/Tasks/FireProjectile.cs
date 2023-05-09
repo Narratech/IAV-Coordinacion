@@ -45,7 +45,7 @@ namespace es.ucm.fdi.iav.rts
 
         // Altura que se añade al proyectil y su objetivo para poder disparar el proyectil sin tocar el suelo.
         [Tooltip("Altura que se añade al proyectil y su objetivo para poder disparar el proyectil sin tocar el suelo.")]
-        [SerializeField] private float _fireHeight = 1f;
+        [SerializeField] private float _fireHeight = 1.5f; // Valor por defecto que será sobreescrito
         public float FireHeight { get { return _fireHeight; } }
 
         /**************************************************************/
@@ -120,8 +120,8 @@ namespace es.ucm.fdi.iav.rts
             var elevatedPosition = transform.position;
             elevatedPosition.y += FireHeight;
             var elevatedTargetPosition = AttackTarget.Value.position;
-            elevatedTargetPosition.y += FireHeight;
-            spawnedProjectile.transform.position = elevatedPosition;
+            elevatedTargetPosition.y += FireHeight; 
+            spawnedProjectile.transform.position = elevatedPosition; // El proyectil se genera donde le pedimos
             spawnedProjectile.transform.LookAt(elevatedTargetPosition);
 
             // Con esto se puede mostrar el rayo de trayectoria del proyectil como Gizmo
@@ -137,11 +137,11 @@ namespace es.ucm.fdi.iav.rts
 
             var projectile = spawnedProjectile.GetComponent<Projectile>();
             // OJO: Si es una torreta, estaría bien tener un método que no requiere controlador (o pasar sólo el índice)
-            projectile.Enable(RTSController.Value, AttackTarget.Value, AttackDamage); 
+            projectile.Enable(RTSController.Value, elevatedTargetPosition, AttackDamage); // En vez de AttackTarget.Value, pasamos como parámetro elevatedTargetPosition
 
-                // Añade un evento de manera que el proyectil es destruido cuando el objetivo es destruido
-                // Esto no lo hago, porque es más realista controlarlo en función de la colisión o del tiempo, exclusivamente
-                //AttackTarget.Value.gameObject.GetComponent<Health>().OnDeath += projectile.DestroySelf;
+            // Añade un evento de manera que el proyectil es destruido cuando el objetivo es destruido
+            // Esto no lo hago, porque es más realista controlarlo en función de la colisión o del tiempo, exclusivamente
+            //AttackTarget.Value.gameObject.GetComponent<Health>().OnDeath += projectile.DestroySelf;
 
             // Ignora las colisiones entre el proyectil y el objeto que dispara el proyectil para evitar que el proyectil cause daño al propio atacante. 
             Physics.IgnoreCollision(Collider, projectile.GetComponent<Collider>());

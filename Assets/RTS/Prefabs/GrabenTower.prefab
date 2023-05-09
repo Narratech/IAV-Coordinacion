@@ -48,8 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackDamage: 1
-  _attackTime: 0.5
-  _attackDistance: 12
+  _attackTime: 2
+  _attackDistance: 15
   _maxPositions: 20
   _radius: 10
   _nextPosition: 0
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 484eedb0ed00a2c40a528ec27467f901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialAmmount: 20
+  _initialAmmount: 200
 --- !u!65 &2346726566721990368
 BoxCollider:
   m_ObjectHideFlags: 0
